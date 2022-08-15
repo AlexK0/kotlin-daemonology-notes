@@ -99,6 +99,8 @@ If this option is enabled, compiler dumps IR after each lowering. They will be d
 Extremely useful for debugging!
 ![debugMode example](resources/img_debugMode.png)
 
+There is another option `-Pfd.org.jetbrains.kotlin.compiler.ir.dump.strategy=KotlinLike` that makes the IR dump more readable (but less detailed).
+
 TODO: Can I use it for non-test project build???
 
 A piece of information about Kotlin JS tests can be found in Kotlin official repository [here](https://github.com/JetBrains/kotlin/blob/master/js/ReadMe.md) and [here](https://github.com/JetBrains/kotlin/tree/master/compiler/test-infrastructure#debugging-tests-js-and-wasm-only)
