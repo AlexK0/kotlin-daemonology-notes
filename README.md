@@ -200,6 +200,16 @@ Example:
 jcmd ${PID} VM.uptime
 ```
 
+## [JMC](https://www.oracle.com/java/technologies/javase/products-jmc8-downloads.html)
+
+Must have tool! It allows to monitor the resources of [your daemons](#daemons):
+![resources](resources/img_jmc_resources.png)
+
+Also, it may run [jcmd](#jcmd) commands from the UI:
+![run jcmd](resources/img_jmc_control.png)
+
+And other helpful things.
+
 ## Daemons
 You can say gradle to run everything in one process without daemons, but it is very slow!
 If you still wanna do this, check the options (in `gradle.properties` or `local.properties` or through `-P{option key}={option value}`):
@@ -303,8 +313,6 @@ $ jcmd ${KotlinCompileDaemon PID} JFR.start name=KotlinDemonProfile filename=/ou
 
 [Commands for jcmd JFR ](https://docs.oracle.com/javacomponents/jmc-5-5/jfr-command-reference/diagnostic-command-reference.htm)
 
-[JMC can be found here](https://www.oracle.com/java/technologies/javase/products-jmc8-downloads.html)
-
 ## Heap dump
 
 ### OOM investigation
@@ -339,7 +347,7 @@ $ ls -la /var/folders/wf/6rs371f93c33q3kl3ygxs4500000kt/T/ | grep java
 a heap dump should look like `java_pid${KotlinCompileDaemon PID}.hprof`.
 
 #### Pass JVM args explicitly
-If `HeapDumpOnOutOfMemoryError` and `HeapDumpPath` are not specified implicitly, you can pass them explicitly to Kotlin daemon (TODO: check if it works)
+If `HeapDumpOnOutOfMemoryError` and `HeapDumpPath` are not specified implicitly, you can pass them explicitly to Kotlin daemon
 (Before starting make sure, that there are no available [Kotlin daemons](#daemons)):
 ```bash
 $ ./gradlew -Dkotlin.daemon.jvm.options=XX:+HeapDumpOnOutOfMemoryError,XX:HeapDumpPath=/path/to/heap_dump.hprof :${Kotlin JS Task}
