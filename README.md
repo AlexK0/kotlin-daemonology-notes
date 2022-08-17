@@ -6,7 +6,7 @@ This repository is a collection of notes about different useful things around [K
 - [Gradle for kotlin compiler](#gradle-for-kotlin-compiler)
 - [Gradle for other projects](#gradle-for-other-projects)
 - [JVM control](#jvm-control)
-- [JMC](#jmchttpswwworaclecomjavatechnologiesjavaseproducts-jmc8-downloadshtml)
+- [JMC](#jmc)
 - [Daemons](#daemons)
 - [Debugging](#debugging)
 - [Profiling](#profiling)
@@ -201,9 +201,11 @@ Example:
 jcmd ${PID} VM.uptime
 ```
 
-## [JMC](https://www.oracle.com/java/technologies/javase/products-jmc8-downloads.html)
+## JMC
 
-Must have tool! It allows to monitor the resources of [your daemons](#daemons):
+Must have tool! You can find it [here](https://www.oracle.com/java/technologies/javase/products-jmc8-downloads.html). 
+
+It allows to monitor the resources of [your daemons](#daemons):
 ![resources](resources/img_jmc_resources.png)
 
 Also, it may run [jcmd](#jcmd) commands from the UI:
