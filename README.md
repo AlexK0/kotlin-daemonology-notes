@@ -205,7 +205,7 @@ jcmd ${PID} VM.uptime
 
 Must have tool! You can find it [here](https://www.oracle.com/java/technologies/javase/products-jmc8-downloads.html). 
 
-It allows to monitor the resources of [your daemons](#daemons):
+It allows you to control and monitor the resources of [your daemons](#daemons):
 ![resources](resources/img_jmc_resources.png)
 
 Also, it may run [jcmd](#jcmd) commands from the UI:
