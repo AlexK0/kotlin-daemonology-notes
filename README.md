@@ -293,7 +293,7 @@ $ ./gradlew -Dkotlin.daemon.jvm.options=${any options separated by `,` without `
    ```bash
    $ ./gradlew -Dkotlin.daemon.jvm.options=-agentlib:jdwp=transport=dt_socket\\,server=n\\,address=localhost:5006\\,suspend=y :${Kotlin JS Task}
    ```
-   Note: You may use either the ip address (in the example it was **_192.168.0.101_**) from the IDE config or just _**localhost**_, both work fine.
+   Note: You may use either the ip address (in the example it was **_192.168.0.101_**) from the IDE config or just _**localhost**_, both work fine. I also remove `onthrow` and `onuncaught` options, however in some cases they can be useful.
 6) Wait the breakpoint trigger.
 7) Enjoy!
 
