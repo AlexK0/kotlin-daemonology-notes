@@ -284,6 +284,7 @@ In this case IDE with the debugger client connects to Kotlin or Gradle daemon JV
 2) Before continuing make sure, that there are no available [daemons](#stopping-daemons).
 3) Do not forget about breakpoints.
 4) Start the daemon with the following JVM options (these options must correspond to options from debug config):
+
    If you wanna debug Gradle daemon:
    ```bash
    $ ./gradlew -Dorg.gradle.jvmargs=-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5006 :${Kotlin JS Task}
