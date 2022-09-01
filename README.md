@@ -38,9 +38,13 @@ This repository is a collection of notes about different useful things around [K
    ```bash
    $ jps | grep -E 'GradleDaemon|KotlinCompileDaemon' | cut -f 1 -d' ' | xargs kill -9
    ```
-- start Kotlin daemon with [debugger](#debugging):
+- start Kotlin daemon with [debugger server](#ide-as-a-client-and-kotlin-daemon-as-a-server):
    ```bash
    $ ./gradlew -Dkotlin.daemon.jvm.options=-agentlib:jdwp=transport=dt_socket\\,server=y\\,suspend=y\\,address=5006 :${Kotlin JS Task}
+   ```
+- start Kotlin daemon with [debugger client](#ide-as-a-server-and-kotlin-daemon-as-a-client):
+   ```bash
+   $ ./gradlew -Dkotlin.daemon.jvm.options=-agentlib:jdwp=transport=dt_socket\\,server=n\\,address=localhost:5006\\,suspend=y :${Kotlin JS Task}
    ```
 - start Kotlin daemon with/for [JFR](#java-flight-recorder):
    ```bash
@@ -264,15 +268,34 @@ $ ./gradlew -Dkotlin.daemon.jvm.options=${any options separated by `,` without `
 
 ## Debugging
 
+### IDE as a client and Kotlin daemon as a server
+
 1) Prepare a debug configuration in IDE, it should look like that:
-   ![debug configuration](resources/img_debug_config.png)
+   ![debug configuration](resources/img_debug_client_config.png)
 2) Before continuing make sure, that there are no available [Kotlin daemons](#daemons).
-3) Start Kotlin daemon with the following JVM options:
+3) Do not forget about breakpoints.
+4) Start Kotlin daemon with the following JVM options (these options must correspond to options from debug config):
    ```bash
    $ ./gradlew -Dkotlin.daemon.jvm.options=-agentlib:jdwp=transport=dt_socket\\,server=y\\,suspend=y\\,address=5006 :${Kotlin JS Task}
    ```
-4) Go to IDE and connect with remove debugger to Kotlin daemon.
-5) Enjoy!
+5) Go to IDE and connect with remove debugger to Kotlin daemon.
+6) Wait the breakpoint trigger.
+7) Enjoy!
+
+### IDE as a server and Kotlin daemon as a client
+
+1) Prepare a debug configuration in IDE, it should look like that:
+   ![debug configuration](resources/img_debug_server_config.png)
+2) Before continuing make sure, that there are no available [Kotlin daemons](#daemons).
+3) From IDE start listing a debugger connection.
+4) Do not forget about breakpoints.
+5) Start Kotlin daemon with the following JVM options (these options must correspond to options from debug config):
+   ```bash
+   $ ./gradlew -Dkotlin.daemon.jvm.options=-agentlib:jdwp=transport=dt_socket\\,server=n\\,address=localhost:5006\\,suspend=y :${Kotlin JS Task}
+   ```
+   Note: You may use either the ip address (in the example it was **_192.168.0.101_**) from the IDE config or just _**localhost**_, both work fine.
+6) Wait the breakpoint trigger.
+7) Enjoy!
 
 ## Profiling
 
