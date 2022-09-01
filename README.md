@@ -283,7 +283,7 @@ In this case IDE with the debugger client connects to Kotlin or Gradle daemon JV
    ![debug configuration](resources/img_debug_client_config.png)
 2) Before continuing make sure, that there are no available [daemons](#stopping-daemons).
 3) Do not forget about breakpoints.
-4) Start the daemon with the following JVM options (these options must correspond to options from debug config):
+4) Start the daemon with the following JVM options (these options must correspond to the options from the debug config):
 
    If you wanna debug Gradle daemon:
    ```bash
@@ -306,7 +306,7 @@ In this case Kotlin or Gradle daemon JVM client connects to IDE with the debugge
 2) Before continuing make sure, that there are no available [daemons](#stopping-daemons).
 3) From IDE start listing a debugger connection.
 4) Do not forget about breakpoints.
-5) Start the daemon with the following JVM options (these options must correspond to options from debug config):
+5) Start the daemon with the following JVM options (these options must correspond to the options from the debug config):
 
    If you wanna debug Gradle daemon:
    ```bash
