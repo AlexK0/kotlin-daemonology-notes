@@ -270,6 +270,8 @@ $ ./gradlew -Dkotlin.daemon.jvm.options=${any options separated by `,` without `
 
 ### IDE as a client and Kotlin daemon as a server
 
+In this case IDE with the debugger client connects to Kotlin daemon JVM server.
+
 1) Prepare a debug configuration in IDE, it should look like that:
    ![debug configuration](resources/img_debug_client_config.png)
 2) Before continuing make sure, that there are no available [Kotlin daemons](#daemons).
@@ -284,6 +286,8 @@ $ ./gradlew -Dkotlin.daemon.jvm.options=${any options separated by `,` without `
 
 ### IDE as a server and Kotlin daemon as a client
 
+In this case Kotlin daemon JVM client connects to IDE with the debugger server.
+
 1) Prepare a debug configuration in IDE, it should look like that:
    ![debug configuration](resources/img_debug_server_config.png)
 2) Before continuing make sure, that there are no available [Kotlin daemons](#daemons).
@@ -293,7 +297,7 @@ $ ./gradlew -Dkotlin.daemon.jvm.options=${any options separated by `,` without `
    ```bash
    $ ./gradlew -Dkotlin.daemon.jvm.options=-agentlib:jdwp=transport=dt_socket\\,server=n\\,address=localhost:5006\\,suspend=y :${Kotlin JS Task}
    ```
-   Note: You may use either the ip address (in the example it was **_192.168.0.101_**) from the IDE config or just _**localhost**_, both work fine. I also remove `onthrow` and `onuncaught` options, however in some cases they can be useful.
+   Note: You may use either the ip address (in the example it is **_192.168.0.101_**) from the IDE config or just _**localhost**_, both work fine. I also remove `onthrow` and `onuncaught` options, however in some cases they can be useful.
 6) Wait the breakpoint trigger.
 7) Enjoy!
 
