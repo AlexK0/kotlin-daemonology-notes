@@ -22,6 +22,10 @@ This repository is a collection of notes about different useful things around [K
    ```bash
    $ ./gradlew --parallel --project-dir js/js.tests jsIrTest
    ```
+- run [Kotlin stdlib JS IR tests](#stdlib-tests):
+    ```bash
+    $ ./gradlew publish && ./gradlew :kotlin-stdlib-js-ir:jsTest -Pbootstrap.local=true
+    ```
 - show all available gradle tasks:
    ```bash
    $ ./gradlew -q :tasks --all
@@ -110,6 +114,19 @@ TODO: Can I use it for non-test project build???
 
 A piece of information about Kotlin JS tests can be found in Kotlin official repository [here](https://github.com/JetBrains/kotlin/blob/master/js/ReadMe.md) and [here](https://github.com/JetBrains/kotlin/tree/master/compiler/test-infrastructure#debugging-tests-js-and-wasm-only)
 
+### stdlib tests
+
+Before running the tests, publish stdlib to the local bootstrap
+
+```bash
+$ ./gradlew publish
+```
+
+Run the tests with the local bootstrap (it may work long)
+
+```bash
+$ ./gradlew :kotlin-stdlib-js-ir:jsTest -Pbootstrap.local=true
+```
 
 ## Gradle for other projects
 
@@ -154,7 +171,7 @@ To increase the compiler output verbosity you may add `--info` option to the gra
 
 In general there are two types of build:
 - Development - no DCE, but it supports incremental compilation,
-- Production - with DCE, incremental compilation options are ignored, and it also includes webpack (are you sure?).
+- Production - with DCE, incremental compilation options are ignored.
 
 The names of the gradle build tasks may be different for each project.
 You may check the tasks name in IDE (`Gradle` button in the right top corner), or use the following command:
