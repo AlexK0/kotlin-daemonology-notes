@@ -16,59 +16,59 @@ This repository is a collection of notes about different useful things around [K
 ## TL;DR
 - [build](#building) and install Kotlin [from sources](https://github.com/JetBrains/kotlin) to [local maven repository](#using-kotlin-from-local-maven-repository):
    ```bash
-   $ ./gradlew install
+   ./gradlew install
    ```
 - run [Kotlin compiler JS IR tests](#compiler-tests):
    ```bash
-   $ ./gradlew --parallel --project-dir js/js.tests jsIrTest
+   ./gradlew --parallel --project-dir js/js.tests jsIrTest
    ```
 - run [Kotlin stdlib JS IR tests](#stdlib-tests):
     ```bash
-    $ ./gradlew publish && ./gradlew :kotlin-stdlib-js-ir:jsTest -Pbootstrap.local=true
+    ./gradlew publish && ./gradlew :kotlin-stdlib-js-ir:jsTest -Pbootstrap.local=true
     ```
 - show all available gradle tasks:
    ```bash
-   $ ./gradlew -q :tasks --all
+   ./gradlew -q :tasks --all
    ```
 - [clean everything](#gradle-clean):
    ```bash
-   $ rm -rf .gradle && find . -name 'build' | grep -v ".git" | xargs rm -rf
+   rm -rf .gradle && find . -name 'build' | grep -v ".git" | xargs rm -rf
    ```
 - [show all Kotlin daemons](#searching-daemons):
    ```bash
-   $ jps | grep KotlinCompileDaemon
+   jps | grep KotlinCompileDaemon
    ```
 - [stop all Gradle and Kotlin daemons](#stopping-daemons):
    ```bash
-   $ jps | grep -E 'GradleDaemon|KotlinCompileDaemon' | cut -f 1 -d' ' | xargs kill -9
+   jps | grep -E 'GradleDaemon|KotlinCompileDaemon' | cut -f 1 -d' ' | xargs kill -9
    ```
 - start Kotlin daemon with [debugger server](#ide-as-a-client-and-kotlin-or-gradle-daemon-as-a-server):
    ```bash
-   $ ./gradlew -Dkotlin.daemon.jvm.options=-agentlib:jdwp=transport=dt_socket\\,server=y\\,suspend=y\\,address=5006 :${Kotlin JS Task}
+   ./gradlew -Dkotlin.daemon.jvm.options=-agentlib:jdwp=transport=dt_socket\\,server=y\\,suspend=y\\,address=5006 :${Kotlin JS Task}
    ```
 - start Kotlin daemon with [debugger client](#ide-as-a-server-and-kotlin-or-gradle-daemon-as-a-client):
    ```bash
-   $ ./gradlew -Dkotlin.daemon.jvm.options=-agentlib:jdwp=transport=dt_socket\\,server=n\\,address=localhost:5006\\,suspend=y :${Kotlin JS Task}
+   ./gradlew -Dkotlin.daemon.jvm.options=-agentlib:jdwp=transport=dt_socket\\,server=n\\,address=localhost:5006\\,suspend=y :${Kotlin JS Task}
    ```
 - start Kotlin daemon with/for [JFR](#java-flight-recorder):
    ```bash
-   $ ./gradlew -Dkotlin.daemon.jvm.options=XX:+UnlockDiagnosticVMOptions,XX:+DebugNonSafepoints,XX:+FlightRecorder,XX:FlightRecorderOptions=stackdepth=2048 :${Kotlin JS Task} 
+   ./gradlew -Dkotlin.daemon.jvm.options=XX:+UnlockDiagnosticVMOptions,XX:+DebugNonSafepoints,XX:+FlightRecorder,XX:FlightRecorderOptions=stackdepth=2048 :${Kotlin JS Task} 
    ```
 - start [JFR](#java-flight-recorder):
    ```bash
-   $ jcmd ${KotlinCompileDaemon PID} JFR.start name=KotlinDemonProfile filename=/out/path/recording.jfr settings=profile maxsize=4GB
+   jcmd ${KotlinCompileDaemon PID} JFR.start name=KotlinDemonProfile filename=/out/path/recording.jfr settings=profile maxsize=4GB
    ```
 - stop [JFR](#java-flight-recorder):
    ```bash
-   $ jcmd ${KotlinCompileDaemon PID} JFR.stop name=KotlinDemonProfile
+   jcmd ${KotlinCompileDaemon PID} JFR.stop name=KotlinDemonProfile
    ```
 - start Kotlin daemon with [Heap dump](#pass-jvm-args-explicitly):
    ```bash
-   $ ./gradlew -Dkotlin.daemon.jvm.options=XX:+HeapDumpOnOutOfMemoryError,XX:HeapDumpPath=/path/to/heap_dump.hprof :${Kotlin JS Task}
+   ./gradlew -Dkotlin.daemon.jvm.options=XX:+HeapDumpOnOutOfMemoryError,XX:HeapDumpPath=/path/to/heap_dump.hprof :${Kotlin JS Task}
    ```
 - run [gradle-profiler](#benchmarking):
    ```bash
-   $ gradle-profiler --benchmark --project-dir /path/to/project --scenario-file /path/to/scenario/file.scenarios 
+   gradle-profiler --benchmark --project-dir /path/to/project --scenario-file /path/to/scenario/file.scenarios 
    ```
 
 ## Gradle for kotlin compiler
@@ -87,12 +87,12 @@ kotlin.test.maxParallelForks=8
 ### Building
 Build Kotlin [from sources](https://github.com/JetBrains/kotlin):
 ```bash
-$ ./gradlew dist
+./gradlew dist
 ```
 
 Build Kotlin [from sources](https://github.com/JetBrains/kotlin) and install it into local maven repository (`$HOME/.m2` directory):
 ```bash
-$ ./gradlew install
+./gradlew install
 ```
 
 ### Compiler tests
@@ -100,7 +100,7 @@ You can run tests from IDE - just press the green play button, however it is pos
 
 Run all JS IR tests from the console:
 ```bash
-$ ./gradlew --parallel --project-dir js/js.tests jsIrTest
+./gradlew --parallel --project-dir js/js.tests jsIrTest
 ```
 
 Also, you may add `-Pfd.kotlin.js.debugMode=2` option to you tests (in IDE it works as well).
@@ -119,13 +119,13 @@ A piece of information about Kotlin JS tests can be found in Kotlin official rep
 Before running the tests, publish stdlib to the local bootstrap
 
 ```bash
-$ ./gradlew publish
+./gradlew publish
 ```
 
 Run the tests with the local bootstrap (it may work long)
 
 ```bash
-$ ./gradlew :kotlin-stdlib-js-ir:jsTest -Pbootstrap.local=true
+./gradlew :kotlin-stdlib-js-ir:jsTest -Pbootstrap.local=true
 ```
 
 ## Gradle for other projects
@@ -177,18 +177,18 @@ The names of the gradle build tasks may be different for each project.
 You may check the tasks name in IDE (`Gradle` button in the right top corner), or use the following command:
 
 ```bash
-$ ./gradlew -q :tasks --all
+./gradlew -q :tasks --all
 ```
 
 #### Building [full-stack-web-jetbrains-night-sample](https://github.com/Kotlin/full-stack-web-jetbrains-night-sample)
 Development build without DCE, but with the incremental compilation support
 ```bash
-$ ./gradlew client:compileDevelopmentExecutableKotlinJs
+./gradlew client:compileDevelopmentExecutableKotlinJs
 ```
 
 Production build with Webpack(?)
 ```bash
-$ ./gradlew client:compileProductionExecutableKotlinJs
+./gradlew client:compileProductionExecutableKotlinJs
 ```
 
 ### Gradle clean
@@ -197,7 +197,7 @@ If you do not trust `./gradlew clean` command, you can remove all build artifact
 
 **ATTENTION! IT MAY REMOVE MORE THAN YOU WANT! DO NOT USE THIS COMMAND IN KOTLIN LOCAL REPOSITORY**
 ```bash
-$ rm -rf .gradle && find . -name 'build' | grep -v ".git" | xargs rm -rf
+rm -rf .gradle && find . -name 'build' | grep -v ".git" | xargs rm -rf
 ```
 
 ## JVM control
@@ -208,7 +208,7 @@ This command shows all JVM processes. I usually use it with `grep`.
 
 Example:
 ```
-$ jps
+jps
 ```
 
 ### jcmd
@@ -247,7 +247,7 @@ Mostly you need to pass some extra options to Kotlin daemon, but before you need
 ### Searching daemons
 Find Kotlin daemon PID:
 ```bash
-$ jps | grep KotlinCompileDaemon
+jps | grep KotlinCompileDaemon
 ```
 
 Q: What should I do if I see more than one KotlinCompileDaemon processes?
@@ -257,37 +257,37 @@ If after that I still see more than one daemon, I use the daemon with the highes
 
 Find Gradle and Kotlin daemons:
 ```bash
-$ jps | grep -E 'GradleDaemon|KotlinCompileDaemon' 
+jps | grep -E 'GradleDaemon|KotlinCompileDaemon' 
 ```
 
 ### Stopping daemons
 Stop all daemon processes:
 ```bash
-$ jps | grep -E 'GradleDaemon|KotlinCompileDaemon' | cut -f 1 -d' ' | xargs kill -9
+jps | grep -E 'GradleDaemon|KotlinCompileDaemon' | cut -f 1 -d' ' | xargs kill -9
 ```
 Also, you may stop all JVM processes (it works fine for macOS, however on Linux it may kill your IDE as well):
 ```bash
-$ killall -9 java
+killall -9 java
 ```
 
 ### Passing project options to Gradle daemon
 You may add or override option from `gradle.properties` or `local.properties` via `-P`.
 For example, enable JS IR backend:
 ```bash
-$ ./gradlew -Pkotlin.js.compiler=ir :${Kotlin JS Task}
+./gradlew -Pkotlin.js.compiler=ir :${Kotlin JS Task}
 ```
 
 ### Passing JVM options to Gradle daemon
 These kind of options can be passed via flag `-D`.
 For example give 4G memory for the daemon (TODO CHECK):
 ```bash
-$ ./gradlew -Dorg.gradle.jvmargs=-Xmx4g
+./gradlew -Dorg.gradle.jvmargs=-Xmx4g
 ```
 
 ### Passing options to Kotlin daemon JVM
 You may pass options to Kotlin daemon JVM via `kotlin.daemon.jvm.options` (and `-D`!!!):
 ```bash
-$ ./gradlew -Dkotlin.daemon.jvm.options=${any options separated by `,` without `-`} :${Kotlin JS Task}
+./gradlew -Dkotlin.daemon.jvm.options=${any options separated by `,` without `-`} :${Kotlin JS Task}
 ```
 
 ## Debugging
@@ -304,11 +304,11 @@ In this case IDE with the debugger client connects to Kotlin or Gradle daemon JV
 
    If you wanna debug Gradle daemon:
    ```bash
-   $ ./gradlew -Dorg.gradle.jvmargs=-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5006 :${Kotlin JS Task}
+   ./gradlew -Dorg.gradle.jvmargs=-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5006 :${Kotlin JS Task}
    ```
    If you wanna debug Kotlin daemon:
    ```bash
-   $ ./gradlew -Dkotlin.daemon.jvm.options=-agentlib:jdwp=transport=dt_socket\\,server=y\\,suspend=y\\,address=5006 :${Kotlin JS Task}
+   ./gradlew -Dkotlin.daemon.jvm.options=-agentlib:jdwp=transport=dt_socket\\,server=y\\,suspend=y\\,address=5006 :${Kotlin JS Task}
    ```
 5) Go to IDE and connect with remove debugger to the daemon.
 6) Wait the breakpoint trigger.
@@ -327,11 +327,11 @@ In this case Kotlin or Gradle daemon JVM client connects to IDE with the debugge
 
    If you wanna debug Gradle daemon:
    ```bash
-   $ ./gradlew -Dorg.gradle.jvmargs=-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5006,suspend=y :${Kotlin JS Task}
+   ./gradlew -Dorg.gradle.jvmargs=-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5006,suspend=y :${Kotlin JS Task}
    ```
    If you wanna debug Kotlin daemon:
    ```bash
-   $ ./gradlew -Dkotlin.daemon.jvm.options=-agentlib:jdwp=transport=dt_socket\\,server=n\\,address=localhost:5006\\,suspend=y :${Kotlin JS Task}
+   ./gradlew -Dkotlin.daemon.jvm.options=-agentlib:jdwp=transport=dt_socket\\,server=n\\,address=localhost:5006\\,suspend=y :${Kotlin JS Task}
    ```
    Note: You may use either the ip address (in the example it is **_192.168.0.101_**) from the IDE config or just _**localhost**_, both work fine. I also remove `onthrow` and `onuncaught` options, however in some cases they can be useful.
 6) Wait the breakpoint trigger.
@@ -353,7 +353,7 @@ Java flight recorder complains about stack depth, therefore it makes sense to tu
 ### Java flight recorder
 Tune JFR for Kotlin daemon (Before starting make sure, that there are no available [Kotlin daemons](#daemons)):
 ```bash
-$ ./gradlew -Dkotlin.daemon.jvm.options=XX:+UnlockDiagnosticVMOptions,XX:+DebugNonSafepoints,XX:+FlightRecorder,XX:FlightRecorderOptions=stackdepth=2048 :${Kotlin JS Task}
+./gradlew -Dkotlin.daemon.jvm.options=XX:+UnlockDiagnosticVMOptions,XX:+DebugNonSafepoints,XX:+FlightRecorder,XX:FlightRecorderOptions=stackdepth=2048 :${Kotlin JS Task}
 ```
 - `+UnlockDiagnosticVMOptions` and `+DebugNonSafepoints` - in the internet it is written, that this options improve the profiling quality, I have no idea if it is true.
 - `+FlightRecorder` - enable JFR, TODO: Should the option be explicitly used?
@@ -363,14 +363,14 @@ Do not forget about JVM warming up!
 
 Start-stop JFR:
 ```bash
-$ jcmd ${KotlinCompileDaemon PID} JFR.start name=KotlinDemonProfile filename=/out/path/recording.jfr settings=profile maxsize=4GB
+jcmd ${KotlinCompileDaemon PID} JFR.start name=KotlinDemonProfile filename=/out/path/recording.jfr settings=profile maxsize=4GB
 # do the compilation
-$ jcmd ${KotlinCompileDaemon PID} JFR.stop name=KotlinDemonProfile
+jcmd ${KotlinCompileDaemon PID} JFR.stop name=KotlinDemonProfile
 ```
 
 You can use this combination for small projects:
 ```bash
-$ jcmd ${KotlinCompileDaemon PID} JFR.start name=KotlinDemonProfile filename=/out/path/recording.jfr settings=$JAVA_HOME/lib/jfr/profile.jfc maxsize=4GB && \
+jcmd ${KotlinCompileDaemon PID} JFR.start name=KotlinDemonProfile filename=/out/path/recording.jfr settings=$JAVA_HOME/lib/jfr/profile.jfc maxsize=4GB && \
   ./gradlew -Dkotlin.daemon.jvm.options=XX:+UnlockDiagnosticVMOptions,XX:+DebugNonSafepoints,XX:+FlightRecorder,XX:FlightRecorderOptions=stackdepth=2048 :${Kotlin JS Task} && \
   jcmd ${KotlinCompileDaemon PID} JFR.stop name=KotlinDemonProfile
 ```
@@ -391,7 +391,7 @@ If you wanna understand what goes wrong and why compiler has eaten all memory, y
 But before, inspect the current JVM args, it is very possible, that required options are already passed implicitly.
 You can do this with the `jcmd` command:
 ```bash
-$ jcmd ${KotlinCompileDaemon PID} VM.command_line
+jcmd ${KotlinCompileDaemon PID} VM.command_line
 ```
 
 I've got the following:
@@ -409,7 +409,7 @@ jvm_args:
 
 so I can find heap dumps in `/var/folders/wf/6rs371f93c33q3kl3ygxs4500000kt/T/` directory:
 ```bash
-$ ls -la /var/folders/wf/6rs371f93c33q3kl3ygxs4500000kt/T/ | grep java
+ls -la /var/folders/wf/6rs371f93c33q3kl3ygxs4500000kt/T/ | grep java
 ```
 
 a heap dump should look like `java_pid${KotlinCompileDaemon PID}.hprof`.
@@ -418,13 +418,13 @@ a heap dump should look like `java_pid${KotlinCompileDaemon PID}.hprof`.
 If `HeapDumpOnOutOfMemoryError` and `HeapDumpPath` are not specified implicitly, you can pass them explicitly to Kotlin daemon
 (Before starting make sure, that there are no available [Kotlin daemons](#daemons)):
 ```bash
-$ ./gradlew -Dkotlin.daemon.jvm.options=XX:+HeapDumpOnOutOfMemoryError,XX:HeapDumpPath=/path/to/heap_dump.hprof :${Kotlin JS Task}
+./gradlew -Dkotlin.daemon.jvm.options=XX:+HeapDumpOnOutOfMemoryError,XX:HeapDumpPath=/path/to/heap_dump.hprof :${Kotlin JS Task}
 ```
 
 ### Manually
 Also heap dump can be generated manually via `jcmd`:
 ```bash
-$ jcmd ${KotlinCompileDaemon PID} GC.heap_dump /path/to/heap_dump.hprof
+jcmd ${KotlinCompileDaemon PID} GC.heap_dump /path/to/heap_dump.hprof
 ```
 
 ### Links
@@ -508,5 +508,5 @@ clean_build_ir_ic {
 
 You may run benchmarking with the following command:
 ```bash
-$ gradle-profiler --benchmark --project-dir /path/to/project --scenario-file /path/to/scenario/file.scenarios
+gradle-profiler --benchmark --project-dir /path/to/project --scenario-file /path/to/scenario/file.scenarios
 ```
