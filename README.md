@@ -427,6 +427,26 @@ Also heap dump can be generated manually via `jcmd`:
 jcmd ${KotlinCompileDaemon PID} GC.heap_dump /path/to/heap_dump.hprof
 ```
 
+### Programmatically
+
+Ready to use code snippet:
+
+```kotlin
+import java.lang.management.ManagementFactory
+
+object HeapDumper {
+    private val hotSpotDiagnostic: HotSpotDiagnosticMXBean by lazy {
+        val connection = ManagementFactory.getPlatformMBeanServer()
+        val name = "com.sun.management:type=HotSpotDiagnostic"
+        ManagementFactory.newPlatformMXBeanProxy(connection, name, HotSpotDiagnosticMXBean::class.java)
+    }
+
+    fun createHeapDump(file: String, live: Boolean) {
+        hotSpotDiagnostic.dumpHeap(file, live)
+    }
+}
+```
+
 ### Links
 
 [About heap dump](https://www.baeldung.com/java-heap-dump-capture)
