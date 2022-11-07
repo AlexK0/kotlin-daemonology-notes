@@ -432,6 +432,7 @@ jcmd ${KotlinCompileDaemon PID} GC.heap_dump /path/to/heap_dump.hprof
 Ready to use code snippet:
 
 ```kotlin
+import com.sun.management.HotSpotDiagnosticMXBean
 import java.lang.management.ManagementFactory
 
 object HeapDumper {
