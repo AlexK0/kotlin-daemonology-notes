@@ -164,6 +164,17 @@ For that:
        }
        ```
 
+### Passing compiler args
+You may pass arguments to the compiler. For that in `build.gradle.kts` add the following lines:
+
+```kotlin
+tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile> {
+    // use kotlinOptions.freeCompilerArgs for passing additional arguments
+    kotlinOptions.freeCompilerArgs += "-Xgenerate-dts"
+    kotlinOptions.freeCompilerArgs += "-Xstrict-implicit-export-types"
+}
+```
+
 ### Build your project
 99.9% of all the things with gradle you can do from IDE, however you can also use a console.
 
